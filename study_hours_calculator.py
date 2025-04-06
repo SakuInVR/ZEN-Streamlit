@@ -56,7 +56,7 @@ def main():
     # モード選択 (フォーム外で実装)
     def on_mode_change():
         st.session_state.study_mode = st.session_state.mode_selector
-        st.rerun()
+        # st.rerun() はコールバック完了後に自動実行されるため不要
         
     st.radio(
         "計画モードを選択",
