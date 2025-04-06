@@ -38,11 +38,11 @@ def get_nearest_quarter():
 
 def main():
     st.set_page_config(
-        page_title="大学クォーター制 勉強計画ツール",
+        page_title="学習プランナー",
         page_icon="📚",
-        layout="wide"
+        layout="centered"
     )
-    st.title("大学クォーター制 勉強計画＆単位計算ツール")
+    st.title("クォーター制 学習プランナー")
     
     # クォーター情報表示
     quarter_info = get_nearest_quarter()
@@ -55,28 +55,31 @@ def main():
     
     with st.form("study_form"):
         st.subheader("基本設定")
-        if quarter_info:
-            _, _, days_left = quarter_info
-            weeks_remaining = st.number_input(
-                "残りの期間(週数)",
-                min_value=0, 
-                value=max(1, days_left // 7),
-                step=1
+        col1, col2 = st.columns(2)
+        with col1:
+            if quarter_info:
+                _, _, days_left = quarter_info
+                weeks_remaining = st.number_input(
+                    "残りの期間(週数)",
+                    min_value=0, 
+                    value=max(1, days_left // 7),
+                    step=1
+                )
+            else:
+                weeks_remaining = st.number_input(
+                    "残りの期間(週数)(例:12)",
+                    min_value=0, step=1
+                )
+                
+        with col2:
+            minutes_per_class = st.number_input(
+                "1コマあたりの時間(分) (例:90)",
+                min_value=1, value=90, step=5
             )
-        else:
-            weeks_remaining = st.number_input(
-                "残りの期間(週数)(例:12)",
-                min_value=0, step=1
+            classes_per_credit = st.number_input(
+                "1単位あたりのコマ数 (例:15)",
+                min_value=1, value=15, step=1
             )
-            
-        minutes_per_class = st.number_input(
-            "1コマあたりの時間(分) (例:90)",
-            min_value=1, value=90, step=5
-        )
-        classes_per_credit = st.number_input(
-            "1単位あたりのコマ数 (例:15)",
-            min_value=1, value=15, step=1
-        )
         
         st.subheader("勉強計画を入力")
         st.info("📝 以下のいずれかを空欄にすると、目標達成に必要な勉強量を逆算できます")
