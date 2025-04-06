@@ -37,7 +37,12 @@ def get_nearest_quarter():
     return nearest_quarter
 
 def main():
-    st.title("単位取得の目安計算ツール")
+    st.set_page_config(
+        page_title="大学クォーター制 勉強計画ツール",
+        page_icon="📚",
+        layout="wide"
+    )
+    st.title("大学クォーター制 勉強計画＆単位計算ツール")
     
     # クォーター情報表示
     quarter_info = get_nearest_quarter()
