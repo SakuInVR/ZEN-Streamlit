@@ -297,7 +297,5 @@ def calculate_results():
                 else:
                     st.warning("一日あたりのコマ数の計算ができないよ。")
         
-        st.rerun()
-
 if __name__ == "__main__":
     main()
