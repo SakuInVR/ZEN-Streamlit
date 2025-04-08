@@ -296,6 +296,8 @@ def calculate_results():
                     st.info(f"目標の {target_credits:.2f} 単位を取得するには、毎日 {daily_required_classes:.2f} コマの授業を進める必要があるよ!")
                 else:
                     st.warning("一日あたりのコマ数の計算ができないよ。")
+        
+        st.rerun()
 
 if __name__ == "__main__":
     main()
