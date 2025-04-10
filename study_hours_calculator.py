@@ -162,7 +162,7 @@ def main():
             # 勉強時間モード用入力欄は表示しない
             
         st.session_state.target_credits = st.number_input(
-            "履修したい単位数(例:10)",
+            "履修したい科目の数(例:6)",
             min_value=1.0, 
             step=1.0,
             key='target_credits_input'
