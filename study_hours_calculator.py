@@ -111,7 +111,7 @@ def main():
                 key='minutes_per_class_input' # key名を変更
             )
             classes_per_credit = st.number_input(
-                "1単位あたりのコマ数 (例:15)",
+                "1科目あたりのコマ数 (例:15)",
                 min_value=1, value=15, step=1,
                 key='classes_per_credit_input' # key名を変更
             )
@@ -197,7 +197,7 @@ def calculate_results():
     minutes_per_class = st.session_state.get('minutes_per_class', 90)
     classes_per_credit = st.session_state.get('classes_per_credit', 15)
     daily_classes = st.session_state.get('daily_classes', 0)
-    # ユーザー設定に基づいて1単位あたりの時間を計算
+    # ユーザー設定に基づいて1科目あたりの時間を計算
     minutes_per_credit = classes_per_credit * minutes_per_class
     weekly_study_minutes = available_days * study_minutes_per_day
     credits_per_week = weekly_study_minutes / minutes_per_credit
@@ -244,12 +244,12 @@ def calculate_results():
     
     # 通常モードの計算結果 (コマ数モード非アクティブ時のみ表示)
     if show_normal_mode:
-        st.info("📊 単位ベースの計算結果:")
-        st.write(f"毎週約 {credits_per_week:.2f} 単位分の勉強が可能")
-        st.write(f"残り期間で取得可能な単位数: {total_possible_credits:.2f} 単位")
+        st.info("📊 科目ベースの計算結果:")
+        st.write(f"毎週約 {credits_per_week:.2f} 科目分の勉強が可能")
+        st.write(f"残り期間で取得可能な科目数: {total_possible_credits:.2f} 科目")
         st.divider()
     elif target_credits <= 0 or weeks_remaining <= 0:
-        st.warning("目標単位数と残り週数を正しく入力してください")
+        st.warning("目標科目数と残り週数を正しく入力してください")
 
     # 勉強時間モードの場合のみ推奨値を計算・表示
     if study_mode == "勉強時間で計画":
@@ -274,7 +274,7 @@ def calculate_results():
                 else:
                     st.info("週の勉強日数を入力すると、1日に必要な勉強時間を計算できます")
             else:
-                st.warning("目標単位数と残り週数を入力してください")
+                st.warning("目標科目数と残り週数を入力してください")
         
         # 勉強時間モードでの達成可否判定
         if show_normal_mode:
@@ -283,17 +283,17 @@ def calculate_results():
             else:
                 weeks_needed = target_credits / credits_per_week
                 if weeks_needed <= weeks_remaining:
-                    st.success(f"目標の {target_credits:.2f} 単位を取得するには、あと {weeks_needed:.1f} 週間で大丈夫!")
+                    st.success(f"目標の {target_credits:.2f} 科目を取得するには、あと {weeks_needed:.1f} 週間で大丈夫!")
                 else:
                     extra_weeks = weeks_needed - weeks_remaining
-                    st.error(f"目標の {target_credits:.2f} 単位を取得するには、あと {weeks_needed:.1f} 週間必要だよ。")
+                    st.error(f"目標の {target_credits:.2f} 科目を取得するには、あと {weeks_needed:.1f} 週間必要だよ。")
                     st.error(f"つまり、今のペースだと、残りの {weeks_remaining} 週間では足りず、さらに {extra_weeks:.1f} 週間追加で必要かも")
 
                 # 一日あたり進めるコマ数を計算 (勉強時間モード時のみ)
                 if available_days > 0 and weeks_remaining > 0:
                     total_required_classes = target_credits * classes_per_credit
                     daily_required_classes = total_required_classes / (weeks_remaining * available_days)
-                    st.info(f"目標の {target_credits:.2f} 単位を取得するには、毎日 {daily_required_classes:.2f} コマの授業を進める必要があるよ!")
+                    st.info(f"目標の {target_credits:.2f} 科目を取得するには、毎日 {daily_required_classes:.2f} コマの授業を進める必要があるよ!")
                 else:
                     st.warning("一日あたりのコマ数の計算ができないよ。")
         
